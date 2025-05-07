@@ -1,0 +1,76 @@
+application {  
+    config {
+    baseName clientService
+    packageName com.africom.client
+    serverPort 8082
+    applicationType microservice
+    authenticationType jwt
+    prodDatabaseType postgresql
+    cacheProvider hazelcast
+    buildTool maven
+    databaseType sql
+    devDatabaseType postgresql
+    dtoSuffix DTO
+    embeddableLaunchScript false
+    enableHibernateCache false
+    enableSwaggerCodegen false
+    jhiPrefix jhi
+    jhipsterVersion "6.10.5"
+    serviceDiscoveryType eureka
+    skipClient true
+    skipUserManagement true
+    testFrameworks []
+    websocket false
+  }
+entities Client,Societe,Contact,Site
+}
+
+entity Client {
+  id String required
+  raisonSociale String required
+  identifiantUnique String required
+  adresse String
+  telephone String
+  fax String
+  email String pattern(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/)
+  typeSites String
+}
+
+entity Societe {
+  id String required
+  raisonSociale String required
+  raisonSocialeAbrege String required
+  identifiantUnique String required
+  registreCommerce String required
+  codeArticle String required
+  adresse String required
+  codePostal String required
+  pays String required
+  telephone String
+  fax String
+  email String pattern(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/)
+}
+
+entity Contact {
+  id String required
+  raisonSociale String required
+  identifiantUnique String required
+  adresse String
+  telephone String
+  fax String
+  email String pattern(/^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$/)
+}
+
+entity Site {
+  code String required
+  designation String
+  ville String required
+  gpsX Double
+  gpsY Double
+}
+
+dto * with mapstruct
+service * with serviceClass
+paginate * with pagination
+
+microservice Client, Societe, Contact, Site with clientService
